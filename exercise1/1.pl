@@ -13,11 +13,7 @@ evolvedFrom(dog, tomarctus).
 
 evolvedFromSameCreature(A, B) :- evolvedFrom(A, X), evolvedFrom(B, X).
 
-:- use_module(library(tabling)).
-:- table descendsFrom/2.
-
-descendsFrom(A, C) :- evolvedFrom(A, C).
-descendsFrom(A, C) :- evolvedFrom(A, B), descendsFrom(B, C).
+descendsFrom(A, C) :- evolvedFrom(A, C) -> evolvedFrom(A, C) ; evolvedFrom(A, B), descendsFrom(B, C).
 
 :- begin_tests(descendsFrom).
 
