@@ -13,7 +13,7 @@ evolvedFrom(dog, tomarctus).
 
 evolvedFromSameCreature(A, B) :- evolvedFrom(A, X), evolvedFrom(B, X).
 
-descendsFrom(A, C) :- evolvedFrom(A, C) -> evolvedFrom(A, C) ; evolvedFrom(A, B), descendsFrom(B, C).
+descendsFrom(A, C) :- evolvedFrom(A, C) -> true ; evolvedFrom(A, B), descendsFrom(B, C).
 
 :- begin_tests(descendsFrom).
 
