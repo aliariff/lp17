@@ -10,3 +10,5 @@ http://verify.rwth-aachen.de/lp17/
 - Run `swipl` from terminal
 - Load the data, ex: `["load.pl"].`
 - Run test suite `run_tests.`
+
+[Contributing Tutorial](http://kbroman.org/github_tutorial/pages/fork.html)
