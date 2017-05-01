@@ -6,11 +6,7 @@ http://verify.rwth-aachen.de/lp17/
 - Install Prolog (http://www.swi-prolog.org/)
   - Mac: `brew install swi-prolog`
 
-##### Run Program:
+##### Run:
 - Run `swipl` from terminal
 - Load the data, ex: `["load.pl"].`
-
-##### Run Test:
-- Run `swipl` from terminal
-- Load the test file, ex: `["1.plt"].`
-- `run_tests.`
+- Run test suite `run_tests.`
