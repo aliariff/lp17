@@ -17,7 +17,7 @@ evolvedFromSameCreature(A, B) :- evolvedFrom(A, X), evolvedFrom(B, X).
 :- table descendsFrom/2.
 
 descendsFrom(A, C) :- evolvedFrom(A, C).
-descendsFrom(A, C) :- evolvedFrom(A, B), evolvedFrom(B, C).
+descendsFrom(A, C) :- evolvedFrom(A, B), descendsFrom(B, C).
 
 :- begin_tests(descendsFrom).
 
@@ -38,6 +38,9 @@ test(descendsFrom) :- descendsFrom(wolf, cynodictis).
 test(descendsFrom) :- descendsFrom(wolf, tomarctus).
 test(descendsFrom) :- descendsFrom(dog, cynodictis).
 test(descendsFrom) :- descendsFrom(dog, tomarctus).
+test(descendsFrom) :- descendsFrom(fox, miacis).
+test(descendsFrom) :- descendsFrom(wolf, miacis).
+test(descendsFrom) :- descendsFrom(dog, miacis).
 
 /* false cases */
 test(descendsFrom, fail) :- descendsFrom(cat, cat).
@@ -119,7 +122,6 @@ test(descendsFrom, fail) :- descendsFrom(tomarctus, fox).
 test(descendsFrom, fail) :- descendsFrom(tomarctus, wolf).
 test(descendsFrom, fail) :- descendsFrom(tomarctus, dog).
 test(descendsFrom, fail) :- descendsFrom(fox, cat).
-test(descendsFrom, fail) :- descendsFrom(fox, miacis).
 test(descendsFrom, fail) :- descendsFrom(fox, hyena).
 test(descendsFrom, fail) :- descendsFrom(fox, weasel).
 test(descendsFrom, fail) :- descendsFrom(fox, raccoon).
@@ -128,7 +130,6 @@ test(descendsFrom, fail) :- descendsFrom(fox, fox).
 test(descendsFrom, fail) :- descendsFrom(fox, wolf).
 test(descendsFrom, fail) :- descendsFrom(fox, dog).
 test(descendsFrom, fail) :- descendsFrom(wolf, cat).
-test(descendsFrom, fail) :- descendsFrom(wolf, miacis).
 test(descendsFrom, fail) :- descendsFrom(wolf, hyena).
 test(descendsFrom, fail) :- descendsFrom(wolf, weasel).
 test(descendsFrom, fail) :- descendsFrom(wolf, raccoon).
@@ -137,7 +138,6 @@ test(descendsFrom, fail) :- descendsFrom(wolf, fox).
 test(descendsFrom, fail) :- descendsFrom(wolf, wolf).
 test(descendsFrom, fail) :- descendsFrom(wolf, dog).
 test(descendsFrom, fail) :- descendsFrom(dog, cat).
-test(descendsFrom, fail) :- descendsFrom(dog, miacis).
 test(descendsFrom, fail) :- descendsFrom(dog, hyena).
 test(descendsFrom, fail) :- descendsFrom(dog, weasel).
 test(descendsFrom, fail) :- descendsFrom(dog, raccoon).
