@@ -7,7 +7,12 @@ smallerEqual(s(X), s(Y)) :- smallerEqual(X, Y).
 
 isSorted([]).
 isSorted([_]).
-isSorted([X, Y | Z]) :- smallerEqual(X, Y), isSorted([Y | Z]).
+isSorted([X, Y|Z]) :- smallerEqual(X, Y), isSorted([Y|Z]).
+
+buble([], []).
+buble([X], [X]).
+buble([X, Y|Z], [X|R]) :- smallerEqual(X, Y) -> buble([Y|Z], R), !.
+buble([X, Y|Z], [Y|R]) :- buble([X|Z], R).
 
 :- begin_tests(exercise).
 
@@ -27,5 +32,8 @@ test(smallerEqual, fail) :- smallerEqual(s(s(0)), s(0)). /* 2 <= 1 */
 
 test(isSorted, [nondet]) :- isSorted([0, s(0), s(0), s(s(s(0)))]). /* 0 <= 1 <= 1 <= 3 */
 test(isSorted, fail) :- isSorted([0, s(s(0)), s(0), s(s(s(0)))]). /* 0 <= 2 <= 1 <= 3 */
+
+test(buble, all(X == [[s(0), s(0), 0, s(s(0))]])) :- buble([s(0), s(s(0)), s(0), 0], X).
+test(buble, all(X == [[0, s(0), s(0), s(s(s(0)))]])) :- buble([0, s(0), s(0), s(s(s(0)))], X).
 
 :- end_tests(exercise).
