@@ -9,12 +9,12 @@ isSorted([]).
 isSorted([_]).
 isSorted([X, Y|Z]) :- smallerEqual(X, Y), isSorted([Y|Z]).
 
-buble([], []).
-buble([X], [X]).
-buble([X, Y|Z], [X|R]) :- smallerEqual(X, Y) -> buble([Y|Z], R), !.
-buble([X, Y|Z], [Y|R]) :- buble([X|Z], R).
+bubble([], []).
+bubble([X], [X]).
+bubble([X, Y|Z], [X|R]) :- smallerEqual(X, Y) -> bubble([Y|Z], R), !.
+bubble([X, Y|Z], [Y|R]) :- bubble([X|Z], R).
 
-bubbleSort(L, X) :- buble(L, R), (isSorted(R) -> X = R ; bubbleSort(R, X)).
+bubbleSort(L, X) :- bubble(L, R), (isSorted(R) -> X = R ; bubbleSort(R, X)).
 
 notUnique([X, Y|Z]) :- X == Y -> true ; notUnique([Y|Z]).
 duplicates(L) :- bubbleSort(L, X), notUnique(X).
@@ -54,9 +54,9 @@ test(smallerEqual, fail) :- smallerEqual(s(s(0)), s(0)). /* 2 <= 1 */
 test(isSorted, [nondet]) :- isSorted([0, s(0), s(0), s(s(s(0)))]). /* 0 <= 1 <= 1 <= 3 */
 test(isSorted, fail) :- isSorted([0, s(s(0)), s(0), s(s(s(0)))]). /* 0 <= 2 <= 1 <= 3 */
 
-test(buble, all(X == [[]])) :- buble([], X).
-test(buble, all(X == [[s(0), s(0), 0, s(s(0))]])) :- buble([s(0), s(s(0)), s(0), 0], X).
-test(buble, all(X == [[0, s(0), s(0), s(s(s(0)))]])) :- buble([0, s(0), s(0), s(s(s(0)))], X).
+test(bubble, all(X == [[]])) :- bubble([], X).
+test(bubble, all(X == [[s(0), s(0), 0, s(s(0))]])) :- bubble([s(0), s(s(0)), s(0), 0], X).
+test(bubble, all(X == [[0, s(0), s(0), s(s(s(0)))]])) :- bubble([0, s(0), s(0), s(s(s(0)))], X).
 
 test(bubbleSort, all(X == [[]])) :- bubbleSort([], X).
 test(bubbleSort, all(X == [[0, s(0), s(0), s(s(0))]])) :- bubbleSort([s(0), s(s(0)), s(0), 0], X).
