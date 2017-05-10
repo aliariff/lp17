@@ -63,6 +63,7 @@ test(bubbleSort, all(X == [[0, s(0), s(0), s(s(0))]])) :- bubbleSort([s(0), s(s(
 
 test(duplicates) :- duplicates([s(0), s(s(0)), s(0), 0]).
 test(duplicates, fail) :- duplicates([s(s(0)), s(0), 0]).
+test(duplicates, fail) :- duplicates([]).
 
 test(countNumbers, all(X == [[s(0), s(s(0)), 0, 0, s(0)]])) :- countNumbers([s(0), s(s(s(s(0)))), s(0), 0], X).
 test(countNumbers, all(X == [[s(0), s(s(0)), 0, s(0)]])) :- countNumbers([s(0), s(s(s(0))), s(0), 0], X).
