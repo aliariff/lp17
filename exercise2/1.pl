@@ -19,8 +19,8 @@ bubbleSort(L, X) :- bubble(L, R), (isSorted(R) -> X = R ; bubbleSort(R, X)).
 notUnique([X, Y|Z]) :- X == Y -> true ; notUnique([Y|Z]).
 duplicates(L) :- bubbleSort(L, X), notUnique(X).
 
-increment(0, R) :- R = s(0).
-increment(s(X), R) :- R = s(s(X)).
+increment(0, s(0)).
+increment(s(X), s(s(X))).
 
 hasLast([X], X).
 hasLast([_|XS], Y) :- hasLast(XS, Y).
