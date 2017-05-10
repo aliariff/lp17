@@ -29,6 +29,7 @@ count(_, [], 0).
 count(E, [X|L], Occ) :- E == X -> count(E, L, Occ1), increment(Occ1, Occ), !.
 count(E, [_|L], Occ) :- count(E, L, Occ).
 
+solve(_, [], []) :- !.
 solve(C, L, []) :- hasLast(L, T), smaller(T, C), !.
 solve(C, L, [Occ|X]) :- count(C, L, Occ), increment(C, R), solve(R, L, X).
 
@@ -66,6 +67,6 @@ test(duplicates, fail) :- duplicates([s(s(0)), s(0), 0]).
 test(countNumbers, all(X == [[s(0), s(s(0)), 0, 0, s(0)]])) :- countNumbers([s(0), s(s(s(s(0)))), s(0), 0], X).
 test(countNumbers, all(X == [[s(0), s(s(0)), 0, s(0)]])) :- countNumbers([s(0), s(s(s(0))), s(0), 0], X).
 test(countNumbers, all(X == [[s(s(s(0)))]])) :- countNumbers([0, 0, 0], X).
-test(countNumbers, all(X == [[s(s(s(0)))]])) :- countNumbers([], X).
+test(countNumbers, all(X == [[]])) :- countNumbers([], X).
 
 :- end_tests(exercise).
