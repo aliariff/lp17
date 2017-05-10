@@ -11,7 +11,7 @@ isSorted([X, Y|Z]) :- smallerEqual(X, Y), isSorted([Y|Z]).
 
 bubble([], []).
 bubble([X], [X]).
-bubble([X, Y|Z], [X|R]) :- smallerEqual(X, Y) -> bubble([Y|Z], R), !.
+bubble([X, Y|Z], [X|R]) :- smallerEqual(X, Y), bubble([Y|Z], R), !.
 bubble([X, Y|Z], [Y|R]) :- bubble([X|Z], R).
 
 bubbleSort(L, X) :- bubble(L, R), (isSorted(R) -> X = R ; bubbleSort(R, X)).
