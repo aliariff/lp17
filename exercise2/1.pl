@@ -5,8 +5,7 @@ smallerEqual(0, 0).
 smallerEqual(0, s(_)).
 smallerEqual(s(X), s(Y)) :- smallerEqual(X, Y).
 
-isSorted([]).
-isSorted([_]).
+isSorted([_ | []]).
 isSorted([X, Y|Z]) :- smallerEqual(X, Y), isSorted([Y|Z]).
 
 bubble([], []).
@@ -14,7 +13,9 @@ bubble([X], [X]).
 bubble([X, Y|Z], [X|R]) :- smallerEqual(X, Y), bubble([Y|Z], R), !.
 bubble([X, Y|Z], [Y|R]) :- bubble([X|Z], R).
 
-bubbleSort(L, X) :- bubble(L, R), (isSorted(R) -> X = R ; bubbleSort(R, X)).
+bubbleSort(L, X) :- isSorted(L), L \= X, bubbleSort(L, L).
+bubbleSort(L, X) :- bubble(L, Y), L \= Y, bubbleSort(Y, X), !.
+bubbleSort(X, X).
 
 notUnique([X, Y|Z]) :- X == Y -> true ; notUnique([Y|Z]).
 duplicates(L) :- bubbleSort(L, X), notUnique(X).
