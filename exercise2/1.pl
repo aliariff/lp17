@@ -17,7 +17,14 @@ bubbleSort(L, X) :- isSorted(L), L \= X, bubbleSort(L, L).
 bubbleSort(L, X) :- bubble(L, Y), L \= Y, bubbleSort(Y, X), !.
 bubbleSort(X, X).
 
-notUnique([X, Y|Z]) :- X == Y -> true ; notUnique([Y|Z]).
+equal(0, 0).
+equal(s(X), s(Y)) :- equal(X, Y).
+
+notUnique([]) :- false.
+notUnique([_ | []]) :- false.
+notUnique([A, B | _]) :- equal(A, B), !.
+notUnique([_, B | XS]) :- notUnique([B | XS]).
+
 duplicates(L) :- bubbleSort(L, X), notUnique(X).
 
 increment(0, s(0)).
