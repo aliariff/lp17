@@ -27,21 +27,18 @@ notUnique([_, B | XS]) :- notUnique([B | XS]).
 
 duplicates(L) :- bubbleSort(L, X), notUnique(X).
 
-increment(0, s(0)).
-increment(s(X), s(s(X))).
+count([], _, Z, Z, _).
+count([A | XS], X, Y, Z, L) :- equal(A, X), count(XS, X, Y, s(Z), L).
+count([A | XS], X, Y, Z, [A | XS]) :- count([], X, Y, Z, [A | XS]).
 
-hasLast([X], X).
-hasLast([_|XS], Y) :- hasLast(XS, Y).
+solve([], [], _).
+/* count the number of ith element */
+solve([A | XS], [Y | X], Z) :- equal(A, Z), count([A | XS], A, Y, 0, L), !, solve(L, X, s(Z)), !.
+/* no ith element, add 0 */
+solve([A | XS], [0 | X], Z) :- solve([A | XS], X, s(Z)).
 
-count(_, [], 0).
-count(E, [X|L], Occ) :- E == X -> count(E, L, Occ1), increment(Occ1, Occ), !.
-count(E, [_|L], Occ) :- count(E, L, Occ).
-
-solve(_, [], []) :- !.
-solve(C, L, []) :- hasLast(L, T), smaller(T, C), !.
-solve(C, L, [Occ|X]) :- count(C, L, Occ), increment(C, R), solve(R, L, X).
-
-countNumbers(L, X) :- bubbleSort(L, R), solve(0, R, X).
+countNumbers([], X) :- solve([], X, _).
+countNumbers(L, X) :- bubbleSort(L, [M | N]), solve([M | N], X, M).
 
 :- begin_tests(exercise).
 
